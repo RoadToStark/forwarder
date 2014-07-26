@@ -10,8 +10,6 @@ var forwarder = {
 
     forward: function(request, route, callback) {
 
-        var callback_error;
-        var callback_data;
         var self = this;
 
         this.checkParams(request, route.params, function send(forwarded_params, error) {
