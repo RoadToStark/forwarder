@@ -15,6 +15,7 @@ var forwarder = {
         this.checkParams(request, route.params, function send(forwarded_params, error) {
             if (error) {
                 callback(null, error);
+                return;
             }
 
             self.request(route, forwarded_params, function success(data) {
@@ -26,7 +27,7 @@ var forwarder = {
     /*
      * @param request -> client request
      * @param params  -> params object extracted from route object
-     * @return object containing params;
+     * @return callback with object containing params;
      */
 
     checkParams : function(request, params, callback) {
@@ -35,13 +36,12 @@ var forwarder = {
         var optional_length = params.optional.length;
         var forwarded_params = {};
 
-
         if (mandatory_length) {
             for (var i = 0 ; i < mandatory_length ; i++) {
                 var mandatory_param_name = params.mandatory[i];
                 var mandatory_param = request.param(mandatory_param_name);
                 if (!mandatory_param) {
-                    callback(null, 'Missing parameter');
+                    callback(null, 'Missing parameter : ' + mandatory_param_name);
                     return false;
                 } else {
                     forwarded_params[mandatory_param_name] = mandatory_param;

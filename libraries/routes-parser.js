@@ -4,6 +4,7 @@ var RouteParser = {
 
     /*
      * @param request -> HTTP request from client
+     * @param callback with data or error
      */
 
     getRoute : function(request, callback) {
@@ -27,10 +28,11 @@ var RouteParser = {
             }
 
             if (!callback_data) {
-                callback_error = 'Impossible to find matching route';
+                callback(null, 'Impossible to find route : ' + request.path);
+                return;
             }
 
-            callback(callback_data, callback_error);
+            callback(callback_data, null);
         });
     }
 };

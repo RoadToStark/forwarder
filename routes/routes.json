@@ -2,10 +2,10 @@
     "routes": [
 
         {
-            "income" : "/test",
+            "income" : "/",
             "verb" : "GET",
-            "host" : "localhost:3000",
-            "endpoint" : "api.roadtostark.com",
+            "host" : "api.roadtostark.com",
+            "endpoint" : "/v1/test",
             "params" : {
                 "mandatory": ["test"],
                 "optional": []
@@ -16,7 +16,7 @@
             "income" : "/test",
             "verb" : "POST",
             "host" : "api.roadtostark.com",
-            "endpoint" : "/test",
+            "endpoint" : "/v1/test",
             "params" : {
                 "mandatory": ["name", "password"],
                 "optional": ["test"]

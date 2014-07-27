@@ -6,16 +6,30 @@ var app = express();
 
 app.all('*', function forward(req, res) {
 
-    parser.getRoute(req, function (route, error) {
-        if (error) {
-            res.send(error);
+    parser.getRoute(req, function (route, err) {
+        if (err) {
+            var response = {
+                error: err
+            };
+
+            res.send(JSON.stringify(response));
+            return;
         }
 
-        forwarder.forward(req, route, function(data, error) {
-            if (error) {
-                res.send(error);
+        forwarder.forward(req, route, function(data, err) {
+            if (err) {
+                var response = {
+                    error: err
+                };
+
+                res.send(JSON.stringify(response));
+                return;
             }
+
             res.send(data);
+
+            // Save request metrics
+
         });
     });
 });
