@@ -28,7 +28,12 @@ var RouteParser = {
             }
 
             if (!callback_data) {
-                callback(null, 'Impossible to find route : ' + request.path);
+                var error = {
+                    type: 'Bad request',
+                    message: 'Impossible to find route : ' + request.path
+                };
+
+                callback(null, error);
                 return;
             }
 

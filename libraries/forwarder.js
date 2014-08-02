@@ -41,7 +41,11 @@ var forwarder = {
                 var mandatory_param_name = params.mandatory[i];
                 var mandatory_param = request.param(mandatory_param_name);
                 if (!mandatory_param) {
-                    callback(null, 'Missing parameter : ' + mandatory_param_name);
+                    var error = {
+                        type: 'Bad request',
+                        message: 'Missing parameter : ' + mandatory_param_name
+                    };
+                    callback(null, error);
                     return false;
                 } else {
                     forwarded_params[mandatory_param_name] = mandatory_param;
@@ -80,7 +84,7 @@ var forwarder = {
         } else {
             headers = {
                 'Content-Type': 'application/json',
-                'Content-Length': 'data_string.length'
+                'Content-Length': data_string.length
             };
         }
 
